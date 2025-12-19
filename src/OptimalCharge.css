@@ -1,0 +1,14 @@
+.results {
+    display: "flex"; 
+    justify-items: center; 
+    align-items: center;
+    flex-direction: column;
+    padding-bottom: 2vh;
+}
+
+.header {
+    font-weight: 700;
+    font-size: x-large;
+    text-align: center;
+    padding-top: 2vh;
+}

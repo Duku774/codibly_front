@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { Pie, PieChart } from 'recharts';
+import './EnergyMix.css'
 
 interface DayAverage {
   name: string;
@@ -45,9 +46,9 @@ function RenderEnergyMix() {
             {loading === false && data && (
                 <>
                     <div>
-                        Today
+                        <div className="day">Today</div>
                         <PieChart
-                            style={{ width: '400px', height: '100%', maxWidth: '800px', maxHeight: '800px', aspectRatio: 1 }}
+                            style={{ width: '25vw', height: '100%', maxWidth: '800px', maxHeight: '800px', aspectRatio: 1 }}
                             responsive
                         >
                             <Pie
@@ -64,12 +65,13 @@ function RenderEnergyMix() {
                                 label={({ name, percent }) => `${name} ${(percent! * 100).toFixed(0)}%`}
                             />
                         </PieChart>
-                        Pure energy percentage: {Math.floor(data.pure.todayPure)}%
+                        <div className="pureEnergy">Pure energy percentage:</div>
+                        <div className="percentage">{Math.floor(data.pure.todayPure)}%</div>
                     </div>
                     <div>
-                        Tomorrow
+                        <div className="day">Tomorrow</div>
                         <PieChart
-                            style={{ width: '400px', height: '100%', maxWidth: '800px', maxHeight: '800px', aspectRatio: 1 }}
+                            style={{ width: '25vw', height: '100%', maxWidth: '800px', maxHeight: '800px', aspectRatio: 1 }}
                             responsive
                         >
                             <Pie
@@ -86,12 +88,13 @@ function RenderEnergyMix() {
                                 label={({ name, percent }) => `${name} ${(percent! * 100).toFixed(0)}%`}
                             />
                         </PieChart>
-                        Pure energy percentage: {Math.floor(data.pure.tomorrowPure)}%
+                        <div className="pureEnergy">Pure energy percentage:</div>
+                        <div className="percentage">{Math.floor(data.pure.tomorrowPure)}%</div>
                     </div>
                     <div>
-                        Day After
+                        <div className="day">Day After</div>
                         <PieChart
-                            style={{ width: '400px', height: '100%', maxWidth: '800px', maxHeight: '800px', aspectRatio: 1 }}
+                            style={{ width: '25vw', height: '100%', maxWidth: '800px', maxHeight: '800px', aspectRatio: 1 }}
                             responsive
                         >
                             <Pie
@@ -108,7 +111,8 @@ function RenderEnergyMix() {
                                 label={({ name, percent }) => `${name} ${(percent! * 100).toFixed(0)}%`}
                             />
                         </PieChart>
-                        Pure energy percentage: {Math.floor(data.pure.dayAfterPure)}%
+                        <div className="pureEnergy">Pure energy percentage:</div>
+                        <div className="percentage">{Math.floor(data.pure.dayAfterPure)}%</div>
                     </div>
                 </>
             )}

@@ -1,0 +1,17 @@
+.day {
+    font-weight: 700;
+    font-size: x-large;
+    text-align: center;
+    padding-top: 2vh;
+}
+
+.pureEnergy {
+    font-size: large;
+    text-align: center;
+}
+
+.percentage {
+    font-size: xx-large;
+    font-weight: 700;
+    text-align: center;
+}
