@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Pie, PieChart } from 'recharts';
+import { Cell, Pie, PieChart } from 'recharts';
 import './EnergyMix.css'
 
 interface DayAverage {
@@ -20,21 +20,37 @@ interface ApiResponse {
     }
 }
 
+const COLORS = [
+    "#E09F3E",
+    "#4A4A4A",
+    "#7FB069",
+    "#4FBDBA",
+    "#3A86A8",
+    "#8D6CAB",
+    "#9AA0A6",
+    "#6EC5E9",
+    "#F4D35E",
+];
+
 function RenderEnergyMix() {
     const [loading, setLoading] = useState(true)
     const [data, setData] = useState<ApiResponse>()
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch("http://localhost:3000/endpoint1");
+            try {
+                const response = await fetch("http://localhost:3000/endpoint1");
 
-            if (!response.ok) {
-                console.log("Error fetching data");
-            } else {
+                if (!response.ok) {
+                    throw new Error(`API error: ${response.status}`)
+                }
+
                 const info = await response.json();
                 setData(info);
-
-                setLoading(false);
+            } catch (error) {
+                console.error("Error fetching data:", error)
+            } finally {
+                setLoading(false)
             }
         };
 
@@ -43,6 +59,11 @@ function RenderEnergyMix() {
 
     return (
         <>
+            {loading && (
+                <div>
+                    Fetching data...
+                </div>
+            )}
             {loading === false && data && (
                 <>
                     <div>
@@ -63,7 +84,14 @@ function RenderEnergyMix() {
                                 outerRadius="50%"
                                 fill="#8884d8"
                                 label={({ name, percent }) => `${name} ${(percent! * 100).toFixed(0)}%`}
-                            />
+                            >
+                                {data.averages.today.map((_, index) => (
+                                    <Cell
+                                        key={`cell-${index}`}
+                                        fill={COLORS[index % COLORS.length]}
+                                    />
+                                ))}
+                            </Pie>
                         </PieChart>
                         <div className="pureEnergy">Pure energy percentage:</div>
                         <div className="percentage">{Math.floor(data.pure.todayPure)}%</div>
@@ -86,7 +114,14 @@ function RenderEnergyMix() {
                                 outerRadius="50%"
                                 fill="#8884d8"
                                 label={({ name, percent }) => `${name} ${(percent! * 100).toFixed(0)}%`}
-                            />
+                            >
+                                {data.averages.today.map((_, index) => (
+                                    <Cell
+                                        key={`cell-${index}`}
+                                        fill={COLORS[index % COLORS.length]}
+                                    />
+                                ))}
+                            </Pie>
                         </PieChart>
                         <div className="pureEnergy">Pure energy percentage:</div>
                         <div className="percentage">{Math.floor(data.pure.tomorrowPure)}%</div>
@@ -109,7 +144,14 @@ function RenderEnergyMix() {
                                 outerRadius="50%"
                                 fill="#8884d8"
                                 label={({ name, percent }) => `${name} ${(percent! * 100).toFixed(0)}%`}
-                            />
+                            >
+                                {data.averages.today.map((_, index) => (
+                                    <Cell
+                                        key={`cell-${index}`}
+                                        fill={COLORS[index % COLORS.length]}
+                                    />
+                                ))}
+                            </Pie>
                         </PieChart>
                         <div className="pureEnergy">Pure energy percentage:</div>
                         <div className="percentage">{Math.floor(data.pure.dayAfterPure)}%</div>
