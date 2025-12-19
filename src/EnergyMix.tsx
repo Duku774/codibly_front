@@ -32,6 +32,8 @@ const COLORS = [
     "#F4D35E",
 ];
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 function RenderEnergyMix() {
     const [loading, setLoading] = useState(true)
     const [data, setData] = useState<ApiResponse>()
@@ -39,7 +41,7 @@ function RenderEnergyMix() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch("http://localhost:3000/endpoint1");
+                const response = await fetch(`${API_BASE_URL}/endpoint1`);
 
                 if (!response.ok) {
                     throw new Error(`API error: ${response.status}`)

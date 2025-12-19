@@ -7,6 +7,8 @@ interface ApiResponse {
     avgPure: number;
 }
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 function RenderOptimalCharge() {
     const [hours, setHours] = useState(1)
     const [data, setData] = useState<ApiResponse>()
@@ -14,7 +16,7 @@ function RenderOptimalCharge() {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/endpoint2?hours=${hours}`);
+            const response = await fetch(`${API_BASE_URL}/endpoint2?hours=${hours}`);
 
             if (!response.ok) {
                 throw new Error(`API error: ${response.status}`)
